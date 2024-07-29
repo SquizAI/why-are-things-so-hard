@@ -1,44 +1,30 @@
-import React, { useState, useEffect } from "react";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+// src/pages/CalendarPage.tsx
+import React, { useEffect, useState } from "react";
+import { Box, Heading, List, ListItem } from "@chakra-ui/react";
 import { loadCourseData } from "@/utils/dataLoader";
 
 const CalendarPage: React.FC = () => {
-  const [selectedCampus, setSelectedCampus] = useState("");
-  const [selectedModality, setSelectedModality] = useState("");
-  const [selectedCourses, setSelectedCourses] = useState<any[]>([]);
-  const [calendarView, setCalendarView] = useState("week");
-  const [currentDate, setCurrentDate] = useState(new Date());
-  const [showDegreeProgress, setShowDegreeProgress] = useState(false);
-  const [recommendedCourses, setRecommendedCourses] = useState<any[]>([]);
+  const [courses, setCourses] = useState<string[]>([]);
 
   useEffect(() => {
     const fetchCourses = async () => {
-      try {
-        const courses = await loadCourseData("COP"); // Adjust the subject code as needed
-        setRecommendedCourses(courses);
-      } catch (error) {
-        console.error("Failed to load course data:", error);
-      }
+      // TODO: Fetch recommended courses based on the uploaded advisory report
+      const recommendedCourses = await loadCourseData();
+      setCourses(recommendedCourses);
     };
 
     fetchCourses();
   }, []);
 
   return (
-    <div>
-      <Alert message="This is an alert message!" />
-      <AlertTitle title="Alert Title" />
-      <AlertDescription description="This is a description of the alert." />
-      {/* Rest of your component */}
-      <div>
-        <h2>Recommended Courses</h2>
-        <ul>
-          {recommendedCourses.map((course, index) => (
-            <li key={index}>{course.name}</li>
-          ))}
-        </ul>
-      </div>
-    </div>
+    <Box p={4}>
+      <Heading mb={4}>Recommended Courses</Heading>
+      <List spacing={3}>
+        {courses.map((course, index) => (
+          <ListItem key={index}>{course}</ListItem>
+        ))}
+      </List>
+    </Box>
   );
 };
 

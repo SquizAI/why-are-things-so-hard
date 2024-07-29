@@ -7,19 +7,23 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-export const parsePDF = async (pdfPath: string) => {
-  const pdfContent = fs.readFileSync(pdfPath, "utf-8");
-  const response = await openai.createCompletion({
-    model: "text-davinci-002",
-    prompt: `Extract the following information from the PDF content: course requirements, prerequisites, corequisites, completed courses, GPA, and credits.\n\n${pdfContent}`,
-    temperature: 0.7,
-    max_tokens: 1000,
-    top_p: 1.0,
-    frequency_penalty: 0.0,
-    presence_penalty: 0.0,
+export const parsePDF = async (pdfContent: string) => {
+  const response = await openai.createChatCompletion({
+    model: "gpt-4",
+    messages: [
+      {
+        role: "system",
+        content:
+          "Extract academic details from the provided advisory report PDF content.",
+      },
+      {
+        role: "user",
+        content: pdfContent,
+      },
+    ],
   });
 
-  return response.data.choices[0].text;
+  return response.data.choices[0].message?.content;
 };
 
 export const solveMathHomework = async () => {

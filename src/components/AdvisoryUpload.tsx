@@ -1,6 +1,5 @@
 // src/components/AdvisoryUpload.tsx
 import React, { useState } from "react";
-import { parsePDF } from "../utils/openaiUtils";
 
 const AdvisoryUpload: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -13,15 +12,7 @@ const AdvisoryUpload: React.FC = () => {
 
   const handleUpload = async () => {
     if (file) {
-      const reader = new FileReader();
-      reader.onload = async (e) => {
-        if (e.target?.result) {
-          const content = e.target.result.toString();
-          const parsedData = await parsePDF(content);
-          console.log(parsedData); // Handle parsed data (e.g., update state, display to user)
-        }
-      };
-      reader.readAsText(file);
+      // Upload file and process with OpenAI API
     }
   };
 
