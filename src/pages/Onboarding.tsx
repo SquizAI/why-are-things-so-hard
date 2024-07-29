@@ -16,10 +16,10 @@ const Onboarding: React.FC = () => {
 
   return (
     <Box textAlign="center" fontSize="xl" bg={bgColor} minH="100vh" py={20}>
-      <VStack spacing={8} maxW="800px" mx="auto">
+      <VStack spacing={8} maxW="auto" mx="auto">
         <Image
-          src="/path-to-your-logo.png"
-          alt="MDC Smart Advisory Logo"
+          src="/src/assets/prjct-code-logo.png"
+          alt="PRJCT CODE smart advisor"
           boxSize="150px"
         />
         <Heading as="h1" size="2xl" color={textColor}>
