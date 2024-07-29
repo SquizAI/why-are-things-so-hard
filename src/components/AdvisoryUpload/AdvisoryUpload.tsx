@@ -1,36 +1,20 @@
-// src/components/AdvisoryUpload.tsx
-import React, { useState } from "react";
-import { parsePDF } from "../utils/openaiUtils";
+// src/components/CourseRecommendations.tsx
+import React, { FC } from "react";
 
-const AdvisoryUpload: React.FC = () => {
-  const [file, setFile] = useState<File | null>(null);
+interface Recommendation {
+  id: number;
+  code: string;
+  name: string;
+}
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      setFile(e.target.files[0]);
-    }
-  };
+interface CourseRecommendationsProps {
+  recommendations: Recommendation[];
+}
 
-  const handleUpload = async () => {
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = async (e) => {
-        if (e.target?.result) {
-          const content = e.target.result.toString();
-          const parsedData = await parsePDF(content);
-          console.log(parsedData); // Handle parsed data (e.g., update state, display to user)
-        }
-      };
-      reader.readAsText(file);
-    }
-  };
-
-  return (
-    <div>
-      <input type="file" onChange={handleFileChange} />
-      <button onClick={handleUpload}>Upload</button>
-    </div>
-  );
+const CourseRecommendations: FC<CourseRecommendationsProps> = ({
+  recommendations,
+}) => {
+  // ... component logic
 };
 
-export default AdvisoryUpload;
+export default CourseRecommendations;

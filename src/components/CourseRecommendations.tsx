@@ -1,29 +1,28 @@
-// src/components/CourseRecommendations.tsx
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { Box, VStack, Heading, Text } from "@chakra-ui/react";
 
-const CourseRecommendations: React.FC = () => {
-  const [courses, setCourses] = useState<string[]>([]);
-
-  useEffect(() => {
-    // Fetch course recommendations
-    const fetchCourses = async () => {
-      // Mock API call
-      const recommendedCourses = ["Course 1", "Course 2", "Course 3"];
-      setCourses(recommendedCourses);
-    };
-
-    fetchCourses();
-  }, []);
+const CourseRecommendations = () => {
+  // TODO: Implement course recommendation logic
+  const recommendations = [
+    { id: 1, code: "CS101", name: "Introduction to Computer Science" },
+    { id: 2, code: "MATH201", name: "Calculus I" },
+    // Add more mock recommendations
+  ];
 
   return (
-    <div>
-      <h2>Recommended Courses</h2>
-      <ul>
-        {courses.map((course, index) => (
-          <li key={index}>{course}</li>
+    <Box>
+      <VStack spacing={4} align="stretch">
+        <Heading as="h2" size="lg">
+          Recommended Courses
+        </Heading>
+        {recommendations.map((course) => (
+          <Box key={course.id} p={3} shadow="md" borderWidth="1px">
+            <Heading fontSize="xl">{course.code}</Heading>
+            <Text mt={4}>{course.name}</Text>
+          </Box>
         ))}
-      </ul>
-    </div>
+      </VStack>
+    </Box>
   );
 };
 

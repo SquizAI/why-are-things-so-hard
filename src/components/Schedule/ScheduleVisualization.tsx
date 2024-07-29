@@ -1,14 +1,6 @@
 import React from "react";
-
-interface Section {
-  class: string;
-  section: string;
-  days_times: string;
-  room: string;
-  instructor: string;
-  meeting_dates: string;
-  status: string;
-}
+import { Box, Text, VStack, SimpleGrid } from "@chakra-ui/react";
+import { Section } from "../../utils/loadCourseData";
 
 interface ScheduleVisualizationProps {
   selectedCourses: Section[];
@@ -17,73 +9,71 @@ interface ScheduleVisualizationProps {
 const ScheduleVisualization: React.FC<ScheduleVisualizationProps> = ({
   selectedCourses,
 }) => {
-  const days = [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday",
-  ];
+  const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
   const hours = Array.from({ length: 14 }, (_, i) => i + 8); // 8 AM to 9 PM
 
   const getScheduleDetails = (daysTimes: string) => {
-    if (daysTimes === "TBA") return null;
     const [daysStr, timeStr] = daysTimes.split(" ");
-    const days = daysStr.match(/.{2}/g) || [];
-    const [start, end] = timeStr.split("-").map((t) => {
-      const [hours, minutes] = t.split(":");
-      return parseInt(hours) + (minutes === "30" ? 0.5 : 0);
-    });
+    const days = daysStr.split("");
+    const [start, end] = timeStr
+      .split("-")
+      .map((t) => parseInt(t.split(":")[0]));
     return { days, start, end };
   };
 
   return (
-    <div className="mt-8 overflow-x-auto">
-      <h3 className="text-xl font-semibold mb-2">Weekly Schedule</h3>
-      <table className="w-full border-collapse">
-        <thead>
-          <tr>
-            <th className="border p-2"></th>
+    <Box>
+      <SimpleGrid columns={6} spacing={1}>
+        <Box></Box>
+        {days.map((day) => (
+          <Box key={day} p={2} fontWeight="bold" textAlign="center">
+            {day}
+          </Box>
+        ))}
+        {hours.map((hour) => (
+          <React.Fragment key={hour}>
+            <Box p={2} fontWeight="bold" textAlign="right">{`${hour}:00`}</Box>
             {days.map((day) => (
-              <th key={day} className="border p-2">
-                {day}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {hours.map((hour) => (
-            <tr key={hour}>
-              <td className="border p-2">{`${hour}:00`}</td>
-              {days.map((day) => (
-                <td key={`${day}-${hour}`} className="border p-2 h-8 relative">
-                  {selectedCourses
-                    .filter((course) => {
-                      const schedule = getScheduleDetails(course.days_times);
-                      return (
-                        schedule &&
-                        schedule.days.includes(day.slice(0, 2)) &&
-                        schedule.start <= hour &&
-                        schedule.end > hour
-                      );
-                    })
-                    .map((course) => (
-                      <div
-                        key={course.class}
-                        className="absolute inset-0 bg-blue-200 text-xs p-1 overflow-hidden"
-                      >
+              <Box
+                key={`${day}-${hour}`}
+                borderWidth={1}
+                position="relative"
+                height="50px"
+              >
+                {selectedCourses
+                  .filter((course) => {
+                    const schedule = getScheduleDetails(course.days_times);
+                    return (
+                      schedule.days.includes(day[0]) &&
+                      schedule.start <= hour &&
+                      schedule.end > hour
+                    );
+                  })
+                  .map((course) => (
+                    <Box
+                      key={course.class}
+                      position="absolute"
+                      top={0}
+                      left={0}
+                      right={0}
+                      bottom={0}
+                      bg="teal.100"
+                      p={1}
+                      overflow="hidden"
+                      fontSize="xs"
+                    >
+                      <Text fontSize="xs" fontWeight="bold">
                         {course.class}
-                      </div>
-                    ))}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+                      </Text>
+                      <Text fontSize="xs">{course.section}</Text>
+                    </Box>
+                  ))}
+              </Box>
+            ))}
+          </React.Fragment>
+        ))}
+      </SimpleGrid>
+    </Box>
   );
 };
 
