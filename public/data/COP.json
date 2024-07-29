@@ -1,0 +1,40 @@
+[
+    {
+      "course_subject": "COP",
+      "classes": [
+        {
+          "course": "COP 1047C",
+          "title": "Introduction to Python Programming",
+          "sections": [
+            {
+              "class": "11223",
+              "section": "005",
+              "days_times": "TR 10:00-11:50",
+              "room": "F345",
+              "instructor": "Dr. White",
+              "meeting_dates": "08/22/2024 - 12/15/2024",
+              "status": "Open",
+              "credits": 4
+            }
+          ]
+        },
+        {
+          "course": "COP 2800",
+          "title": "Java Programming",
+          "sections": [
+            {
+              "class": "55667",
+              "section": "006",
+              "days_times": "MW 13:00-14:50",
+              "room": "G678",
+              "instructor": "Prof. Brown",
+              "meeting_dates": "08/22/2024 - 12/15/2024",
+              "status": "Closed",
+              "credits": 4
+            }
+          ]
+        }
+      ]
+    }
+  ]
+  

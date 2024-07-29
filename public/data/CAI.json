@@ -1,0 +1,39 @@
+[
+  {
+    "course_subject": "CAI",
+    "classes": [
+      {
+        "course": "CAI 1001C",
+        "title": "Artificial Intelligence (AI) Thinking",
+        "sections": [
+          {
+            "class": "54321",
+            "section": "003",
+            "days_times": "F 14:00-16:50",
+            "room": "D789",
+            "instructor": "Dr. Clark",
+            "meeting_dates": "08/22/2024 - 12/15/2024",
+            "status": "Open",
+            "credits": 3
+          }
+        ]
+      },
+      {
+        "course": "CAI 2100C",
+        "title": "Machine Learning Foundations",
+        "sections": [
+          {
+            "class": "98765",
+            "section": "004",
+            "days_times": "MWF 09:00-09:50",
+            "room": "E012",
+            "instructor": "Prof. Davis",
+            "meeting_dates": "08/22/2024 - 12/15/2024",
+            "status": "Closed",
+            "credits": 3
+          }
+        ]
+      }
+    ]
+  }
+]
